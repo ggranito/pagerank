@@ -11,8 +11,8 @@
 #define g(x, y) (g[y*n+x]) 
 
 int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count) 
-{    
-    int done = 1;
+{   
+    double residual = 0.0;
     for (int i=0; i<count; ++i) {
         double sum = 0.0;
         //do before the block
@@ -43,10 +43,11 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
 
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
-        done = done && (fabs(wnew[i] - newVal) < 1.0/(1000000.0 * (double)n));
+        residual += fabs(wnew[i] - newVal)
         wnew[i] = newVal;
     }
-    return done;
+    printf("residual: %g\n", residual);
+    return residual < ((double)count)/(1000000.0 * (double)n);
 }
 
 
