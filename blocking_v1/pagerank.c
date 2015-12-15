@@ -73,11 +73,11 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         }
         printf("Thread: %d Start: %d Count: %d\n", this_thread, start, count);
         double* wlocal = (double*)calloc(count, sizeof(double));
-        memcpy(wlocal, wnew+start, count);
+        memcpy(wlocal, wnew+start, count * sizeof(double));
         int done = 0;
         while (!done) {
             done = run_block(n, d, g, w, wnew, degree, start, count, wlocal);            
-            memcpy(wnew+start, wlocal, count);
+            memcpy(wnew+start, wlocal, count * sizeof(double));
         }
         free(wlocal);
         #pragma omp barrier
