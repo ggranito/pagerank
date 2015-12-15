@@ -32,8 +32,8 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
                 sum += w[j]/(double)jDegree;
             }
         }
+        printf("%g, %g\n", (double)n, d);
         wnew[i] = ((1.0 - d)/(double)n) + (d*sum);
-        printf("%g = %g + %g\n", wnew[i], ((1.0 - d)/(double)n), (d*sum));
         done = wnew[i] == w[i];
     }
     printf("Iteration Happened\n");
