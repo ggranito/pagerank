@@ -105,6 +105,14 @@ void write_weights(const char* fname, int n, double* w)
     fclose(fp);
 }
 
+double checksum(const double* restrict w, int n) {
+    double sum = 0.0;
+    for (int i=0; i<n; ++i) {
+        sum += w[i];
+    }
+    return sum;
+}
+
 /**
  * # The `main` event
  */
@@ -164,7 +172,7 @@ int main(int argc, char** argv)
     printf("p:     %g\n", p);
     printf("d:     %g\n", d);
     printf("Time:  %g\n", t1-t0);
-    printf("Check: %X\n", fletcher16(w, n));
+    printf("Check: %g\n", checksum(w, n));
 
     // Generate output file
     if (ofname)
