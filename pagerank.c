@@ -16,7 +16,7 @@
  */
 int run_iteration(int n, double d, int* restrict g, double* restrict w) 
 {
-    int* restrict wnew = (double*) calloc(n, sizeof(double));
+    double* restrict wnew = (double*) calloc(n, sizeof(double));
     int done = 1;
     #pragma omp parallel for shared(g, w, wnew) reduction(&& : done)
     for (int i=0; i<n; ++i) {
