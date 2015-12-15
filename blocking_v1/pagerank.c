@@ -45,7 +45,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
         printf("residual delta: %g, newVal: %g\n", fabs(wnew[i] - newVal), newVal);
         residual += fabs(wnew[i] - newVal);
-        wnew[i] = newVal;
+        wnew[i+start] = newVal;
     }
     
     return residual < ((double)count)/(1000000.0 * (double)n);
