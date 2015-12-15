@@ -74,7 +74,7 @@ int* gen_graph(int n, double p)
     gettimeofday(&time, NULL);
     unsigned long seed = time.tv_usec;
     sgenrand((unsigned long)seed, &state);
-    printf("Seed: %g\n", seed);
+    printf("Seed: %d\n", seed);
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);
