@@ -70,7 +70,7 @@ int* gen_graph(int n, double p)
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);
-        g(i, j) = 0;
+        g(j, j) = 0; //no self edges
     }
     return g;
 }
