@@ -30,9 +30,6 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
-                if (wnew[j] != w[j]) {
-                    printf("WNEW[j] %g      W[j]: %g", wnew[j], w[j]);
-                }
                 sum += wnew[j]/(double)degree[j];
             }
         }
@@ -81,8 +78,18 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         memcpy(wlocal, wnew+start, count * sizeof(double));
         int done = 0;
         while (!done) {
+            double sum = 0.0;
+            for (int i=0; i<n;++i) {
+                sum += wnew[i];
+            }
+            printf("SUM OF WEIGHTS BEFORE: %g\n", sum);
             done = run_block(n, d, g, w, wnew, degree, start, count, wlocal);            
             memcpy(wnew+start, wlocal, count * sizeof(double));
+            sum = 0.0;
+            for (int i=0; i<n;++i) {
+                sum += wnew[i];
+            }
+            printf("SUM OF WEIGHTS AFTER: %g\n", sum);
         }
         free(wlocal);
         #pragma omp barrier
@@ -95,11 +102,6 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
             w[i] = wnew[i];
         }
     }
-    double sum = 0.0;
-    for (int i=0; i<n;++i) {
-        sum += w[i];
-    }
-    printf("SUM OF WEIGHTS: %g\n", sum);
     return iterationDone;
 }
 
