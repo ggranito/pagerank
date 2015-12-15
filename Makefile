@@ -40,6 +40,3 @@ pagerank-mpi.o: pagerank-mpi.c
 
 clean:
 	rm -f *.o* *.x
-
-realclean: clean
-	rm -f pagerank.x pagerank-mpi.x

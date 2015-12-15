@@ -35,6 +35,7 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
         wnew[i] = ((1.0 - d)/n) + (d*sum);
         done = wnew[i] == w[i];
     }
+    printf("Iteration Happened\n");
     memcpy(w, wnew, n * sizeof(double));
     free(wnew);
     return done;
