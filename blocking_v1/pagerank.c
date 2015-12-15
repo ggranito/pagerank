@@ -48,11 +48,11 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
-        double sum = 0.0;
+        double ct = 0.0;
         for (int j=0; j<n;++i) {
-            sum += wlocal[j];
+            ct += wlocal[j];
         }
-        printf("I= %d SUM OF WEIGHTS: %g\n", i, sum);
+        printf("I= %d SUM OF WEIGHTS: %g\n", i, ct);
     }
     if(start == 0){
         printf("residual: %g netRes: %g\n", residual, totalRes);            
