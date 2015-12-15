@@ -1,0 +1,13 @@
+#!/bin/sh -l
+
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=0:30:00
+#PBS -N pagerank
+#PBS -j oe
+
+module load cs5220
+cd $PBS_O_WORKDIR
+echo "openmp, cores, time, n, iterations, p, d, checksum"
+export OMP_NUM_THREADS=24
+./pagerank.x 
+./pagerank.x 
