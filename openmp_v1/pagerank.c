@@ -171,6 +171,10 @@ int main(int argc, char** argv)
     int iterations = pagerank(n, d, g, w);
     double t1 = omp_get_wtime();
 
+    for (int i = 0; i < n; ++i) {
+        printf("%g ", w[i]);
+    }
+    printf("\n");
     //openmp, cores, time, n, iterations, p, d, checksum
     printf("openmp, %d, %g, %d, %d, %g, %g, %g\n", 
            omp_get_max_threads(),
