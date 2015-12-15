@@ -49,7 +49,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
         double ct = 0.0;
-        for (int j=0; j<n;++i) {
+        for (int j=0; j<n;++j) {
             ct += wlocal[j];
         }
         printf("I= %d SUM OF WEIGHTS: %g\n", i, ct);
