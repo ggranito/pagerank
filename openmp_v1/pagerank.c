@@ -72,9 +72,7 @@ int* gen_graph(int n, double p)
     struct mt19937p state;
     struct timeval time;
     gettimeofday(&time, NULL);
-    unsigned long seed = time.tv_usec;
-    sgenrand((unsigned long)seed, &state);
-    printf("Seed: %d\n", seed);
+    sgenrand((unsigned long)time.tv_usec, &state);
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);
@@ -175,10 +173,6 @@ int main(int argc, char** argv)
     int iterations = pagerank(n, d, g, w);
     double t1 = omp_get_wtime();
 
-    for (int i = 0; i < n; ++i) {
-        printf("%g ", w[i]);
-    }
-    printf("\n");
     //openmp, cores, time, n, iterations, p, d, checksum
     printf("openmp, %d, %g, %d, %d, %g, %g, %g\n", 
            omp_get_max_threads(),
