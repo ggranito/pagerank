@@ -24,7 +24,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += w[j]/(double)degree[j];
             }
         }
-        printf("PREBLOCK SUM: %G\n", sum);
+
         // do the block
         for (int j=start; j<start+count; ++j) {
             //find edges pointing toward i
@@ -33,7 +33,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += wnew[j]/(double)degree[j];
             }
         }
-        printf("POSTBLOCK SUM: %G\n", sum);
+
         // do after the block
         for (int j=start+count; j<n; ++j) {
             //find edges pointing toward i
@@ -42,7 +42,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += w[j]/(double)degree[j];
             }
         }
-        printf("FINAL SUM: %G\n", sum);
+
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
         totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
@@ -80,14 +80,14 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         while (!done) {
             double sum = 0.0;
             for (int i=0; i<n;++i) {
-                sum += wnew[i];
+                sum += wlocal[i];
             }
             printf("SUM OF WEIGHTS BEFORE: %g\n", sum);
             done = run_block(n, d, g, w, wnew, degree, start, count, wlocal);            
             memcpy(wnew+start, wlocal, count * sizeof(double));
             sum = 0.0;
             for (int i=0; i<n;++i) {
-                sum += wnew[i];
+                sum += wlocal[i];
             }
             printf("SUM OF WEIGHTS AFTER: %g\n", sum);
         }
