@@ -10,7 +10,7 @@
 
 #define g(x, y) (g[y*n+x]) 
 
-int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* wlocal) 
+int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* restrict wlocal) 
 {   
     double residual = 0.0;
     for (int i=0; i<count; ++i) {
@@ -44,7 +44,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
         residual += fabs(wnew[i+start] - newVal);
-        wlocal[i+start] = newVal;
+        wlocal[i] = newVal;
     }
     if(start == 0){
         printf("residual: %g threshold: %g\n", residual, ((double)count)/(1000000.0 * (double)n));            
