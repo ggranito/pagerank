@@ -25,7 +25,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
 
         // do the block
-        for (int j=start; j<count; ++j) {
+        for (int j=start; j<start+count; ++j) {
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
