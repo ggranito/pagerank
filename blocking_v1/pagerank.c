@@ -12,6 +12,7 @@
 
 int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* restrict wlocal) 
 {   
+    printf("RUNNING BLOCK start: %d count: %d\n", start, count);
     double totalRes = 0.0;
     double residual = 0.0;
     for (int i=0; i<count; ++i) {
@@ -30,7 +31,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 if (j==0 || j==1){
-                    printf("j: %d, wnew[0] %g\n", j, wnew[0]);
+                    printf("j: %d, wnew[0] %g, wlocal[0]\n", j, wnew[0], wlocal[0]);
                 }
                 //count out degree of j
                 sum += wnew[j]/(double)degree[j];
