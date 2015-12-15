@@ -30,7 +30,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
-                sum += w[j]/(double)degree[j];
+                sum += wnew[j]/(double)degree[j];
             }
         }
 
@@ -44,7 +44,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
 
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
-        totalRes += (wnew[i+start] - newVal);
+        totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
     }
@@ -84,7 +84,11 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         free(wlocal);
         #pragma omp barrier
         for(int i=start; i<start+count; i++){
-            iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
+            int val = (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
+            if (val==0){
+                printf("w[i]: %g, wnew[i]: %g\n", w[i], wnew[i]);
+            }
+            iterationDone = iterationDone && val;
             w[i] = wnew[i];
         }
     }
