@@ -47,12 +47,13 @@ int pagerank(int n, double d, int* restrict g, double* restrict w)
     int* restrict degree = (int*) calloc(n, sizeof(int));
     for (int i=0; i<n; ++i) {
         int count = 0;
-        for (int j=0; j<n; ++k) {
+        for (int j=0; j<n; ++j) {
             count += g(i,j);
         }
 
-        if (count == 0) 
+        if (count == 0) {
             count = n;
+        }
         degree[i] = count;
     }
 
