@@ -7,4 +7,53 @@
 
 module load cs5220
 cd $PBS_O_WORKDIR
-./pagerank.x -i matrix.in -o matrix.out
+echo "openmp, cores, time, n, p, d, checksum"
+export OMP_NUM_THREADS=1
+./pagerank.x 
+export OMP_NUM_THREADS=2
+./pagerank.x 
+export OMP_NUM_THREADS=3
+./pagerank.x 
+export OMP_NUM_THREADS=4
+./pagerank.x 
+export OMP_NUM_THREADS=5
+./pagerank.x 
+export OMP_NUM_THREADS=6
+./pagerank.x 
+export OMP_NUM_THREADS=7
+./pagerank.x 
+export OMP_NUM_THREADS=8
+./pagerank.x 
+export OMP_NUM_THREADS=9
+./pagerank.x 
+export OMP_NUM_THREADS=10
+./pagerank.x 
+export OMP_NUM_THREADS=11
+./pagerank.x 
+export OMP_NUM_THREADS=12
+./pagerank.x 
+export OMP_NUM_THREADS=13
+./pagerank.x 
+export OMP_NUM_THREADS=14
+./pagerank.x 
+export OMP_NUM_THREADS=15
+./pagerank.x 
+export OMP_NUM_THREADS=16
+./pagerank.x 
+export OMP_NUM_THREADS=17
+./pagerank.x 
+export OMP_NUM_THREADS=18
+./pagerank.x 
+export OMP_NUM_THREADS=19
+./pagerank.x 
+export OMP_NUM_THREADS=20
+./pagerank.x 
+export OMP_NUM_THREADS=21
+./pagerank.x 
+export OMP_NUM_THREADS=22
+./pagerank.x 
+export OMP_NUM_THREADS=23
+./pagerank.x 
+export OMP_NUM_THREADS=24
+./pagerank.x 
+

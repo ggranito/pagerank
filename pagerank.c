@@ -169,12 +169,14 @@ int main(int argc, char** argv)
     pagerank(n, d, g, w);
     double t1 = omp_get_wtime();
 
-    printf("== OpenMP with %d threads\n", omp_get_max_threads());
-    printf("n:     %d\n", n);
-    printf("p:     %g\n", p);
-    printf("d:     %g\n", d);
-    printf("Time:  %g\n", t1-t0);
-    printf("Check: %g\n", checksum(w, n));
+    //openmp, cores, time, n, p, d, checksum
+    printf("openmp, %d, %g, %d, %g, %g, %g\n", 
+           omp_get_max_threads(),
+           (t1-t0),
+           n,
+           p,
+           d,
+           checksum(w, n));
 
     // Generate output file
     if (ofname)
