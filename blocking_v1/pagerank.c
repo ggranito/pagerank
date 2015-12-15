@@ -92,7 +92,11 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
             w[i] = wnew[i];
         }
     }
-   
+    double sum = 0.0;
+    for (int i=0; i<n;++i) {
+        sum += w[i];
+    }
+    printf("SUM OF WEIGHTS: %g\n", sum);
     return iterationDone;
 }
 
