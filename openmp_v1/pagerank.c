@@ -71,7 +71,7 @@ int* gen_graph(int n, double p)
     int* g = calloc(n*n, sizeof(int));
     struct mt19937p state;
     struct timeval time;
-    gettimeofday(&time);
+    gettimeofday(&time, NULL);
     unsigned long seed = time.tv_usec;
     sgenrand((unsigned long)seed, &state);
     printf("Seed: %g\n", seed);
