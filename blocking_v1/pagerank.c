@@ -10,55 +10,42 @@
 
 #define g(x, y) (g[y*n+x]) 
 
-void run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count) 
-{
-    double* wlocalnew = (double*) calloc(count, sizeof(double));
-    memcpy(wlocalnew, w + start, count * sizeof(double));
-
-    double* wlocal = (double*) calloc(count, sizeof(double));
-    memcpy(wlocal, wlocalnew, count * sizeof(double));
-    
-
-    int done = 0;
-    while (!done) {
-        done = 1;
-        memcpy(wlocal, wlocalnew, count * sizeof(double));
-
-        for (int i=0; i<count; ++i) {
-            double sum = 0.0;
-            //do before the block
-            for (int j=0; j<start; ++j) {
-                //find edges pointing toward i
-                if (g(j,i+start)) { 
-                    //count out degree of j
-                    sum += w[j]/(double)degree[j];
-                }
+int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count) 
+{    
+    int done = 1;
+    for (int i=0; i<count; ++i) {
+        double sum = 0.0;
+        //do before the block
+        for (int j=0; j<start; ++j) {
+            //find edges pointing toward i
+            if (g(j,i+start)) { 
+                //count out degree of j
+                sum += w[j]/(double)degree[j];
             }
-
-            // do the block
-            for (int j=start; j<count; ++j) {
-                //find edges pointing toward i
-                if (g(j,i+start)) { 
-                    //count out degree of j
-                    sum += wlocal[j]/(double)degree[j];
-                }
-            }
-
-            // do after the block
-            for (int j=start+count; j<n; ++j) {
-                //find edges pointing toward i
-                if (g(j,i+start)) { 
-                    //count out degree of j
-                    sum += w[j]/(double)degree[j];
-                }
-            }
-
-            wlocalnew[i] = ((1.0 - d)/(double)n) + (d*sum);
-            done = done && (wlocalnew[i] == wlocal[i]);
         }
 
+        // do the block
+        for (int j=start; j<count; ++j) {
+            //find edges pointing toward i
+            if (g(j,i+start)) { 
+                //count out degree of j
+                sum += wnew[j]/(double)degree[j];
+            }
+        }
+
+        // do after the block
+        for (int j=start+count; j<n; ++j) {
+            //find edges pointing toward i
+            if (g(j,i+start)) { 
+                //count out degree of j
+                sum += w[j]/(double)degree[j];
+            }
+        }
+
+        double newVal = ((1.0 - d)/(double)n) + (d*sum);
+        done = done && (fabs(wnew[i] - newVal) < 1.0/(1000000.0 * (double)n));
+        wnew[i] = newVal;
     }
-    memcpy(wnew + start, wlocalnew, count * sizeof(double));
 }
 
 
@@ -69,7 +56,8 @@ void run_block(int n, double d, int* restrict g, double* restrict w, double* res
  */
 int run_iteration(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree) 
 {
-    #pragma omp parallel shared(w, wnew)
+    int iterationDone = 1;
+    #pragma omp parallel shared(w, wnew) reduction(&& : iterationDone)
     {
         int this_thread = omp_get_thread_num(), num_threads = omp_get_num_threads();
         int start = (n/num_threads) * this_thread;
@@ -79,14 +67,19 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         } else {
             count = ((n/num_threads) * (this_thread + 1)) - start;
         }
-        run_block(n, d, g, w, wnew, degree, start, count);
+        int done = 0;
+        while (!done) {
+            done = run_block(n, d, g, w, wnew, degree, start, count);            
+        }
+
+        #pragma omp barrier
+        for(int i=start; i<start+count; i++){
+            iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
+            w[i] = wnew[i];
+        }
     }
-    int done = 1;
-    for(int i=0; i<n; i++){
-        done = done && w[i] == wnew[i];
-        w[i] = wnew[i];
-    }
-    return done;
+   
+    return iterationDone;
 }
 
 /**
@@ -97,6 +90,7 @@ int pagerank(int n, double d, int* restrict g, double* restrict w)
 {
     int iterations = 0;
     double* restrict wnew = (double*) calloc(n, sizeof(double));
+    memcpy(wnew, w, n * sizeof(double));
     
     //compute degree of each item prior (if degree = 0, it should be n)
     int* restrict degree = (int*) calloc(n, sizeof(int));
