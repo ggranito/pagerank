@@ -14,9 +14,8 @@
  * Runs 1 iteration of pagerank
  * Returns 1 if done, 0 otherwise
  */
-int run_iteration(int n, double d, int* restrict g, double* restrict w) 
+int run_iteration(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree) 
 {
-    double* restrict wnew = (double*) calloc(n, sizeof(double));
     int done = 1;
     #pragma omp parallel for shared(g, w, wnew) reduction(&& : done)
     for (int i=0; i<n; ++i) {
@@ -25,18 +24,13 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
             //find edges pointing toward i
             if (g(j,i)) { 
                 //count out degree of j
-                int jDegree = 0;
-                for (int k=0; k<n; ++k) {
-                    jDegree += g(j,k);
-                }
-                sum += w[j]/(double)jDegree;
+                sum += w[j]/(double)degree[j];
             }
         }
         wnew[i] = ((1.0 - d)/(double)n) + (d*sum);
         done = wnew[i] == w[i];
     }
     memcpy(w, wnew, n * sizeof(double));
-    free(wnew);
     return done;
 }
 
@@ -47,10 +41,28 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
 int pagerank(int n, double d, int* restrict g, double* restrict w)
 {
     int iterations = 0;
+    double* restrict wnew = (double*) calloc(n, sizeof(double));
+    
+    //compute degree of each item prior (if degree = 0, it should be n)
+    int* restrict degree = (int*) calloc(n, sizeof(int));
+    for (int i=0; i<n; ++i) {
+        int count = 0;
+        for (int j=0; j<n; ++k) {
+            count += g(i,j);
+        }
+
+        if (count == 0) 
+            count = n;
+        degree[i] = count;
+    }
+
     for (int done = 0; !done; ) {
-        done = run_iteration(n, d, g, w);
+        done = run_iteration(n, d, g, w, wnew, degree);
         iterations++;
     }
+
+    free(wnew);
+    free(degree);
     return iterations;
 }
 
