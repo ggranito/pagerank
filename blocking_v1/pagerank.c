@@ -43,7 +43,9 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
         
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
-        printf("value: %g, newVal: %g\n", wnew[i+start], newVal);
+        if(start == 0){
+            printf("i: %d value: %g, newVal: %g\n", i, wnew[i+start], newVal);            
+        }
         residual += fabs(wnew[i+start] - newVal);
         wnew[i+start] = newVal;
     }
@@ -70,6 +72,7 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         } else {
             count = ((n/num_threads) * (this_thread + 1)) - start;
         }
+        printf("Thread: %d Start: %d Count: %d\n", this_thread, start, count);
         int done = 0;
         while (!done) {
             done = run_block(n, d, g, w, wnew, degree, start, count);            
