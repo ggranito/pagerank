@@ -41,8 +41,9 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += w[j]/(double)degree[j];
             }
         }
-        printf("residual delta: %g, newVal: %g\n", fabs(wnew[i] - newVal), newVal);
+        
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
+        printf("residual delta: %g, newVal: %g\n", fabs(wnew[i] - newVal), newVal);
         residual += fabs(wnew[i] - newVal);
         wnew[i] = newVal;
     }
