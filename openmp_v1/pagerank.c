@@ -135,7 +135,7 @@ const char* usage =
 int main(int argc, char** argv)
 {
     int n    = 200;            // Number of nodes
-    double p = 0.05;           // Edge probability
+    double p = 0.15;           // Edge probability
     double d = 0.85;           // Probability a link is followed
     const char* ifname = NULL; // Adjacency matrix file name
     const char* ofname = NULL; // Distance matrix file name
