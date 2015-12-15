@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <sys/time.h>
 #include <unistd.h>
 #include <omp.h>
 #include "mt19937p.h"
@@ -69,7 +70,9 @@ int* gen_graph(int n, double p)
 {
     int* g = calloc(n*n, sizeof(int));
     struct mt19937p state;
-    double seed = omp_get_wtime();
+    struct timeval time;
+    gettimeofday(&time);
+    unsigned long seed = time.tv_usec;
     sgenrand((unsigned long)seed, &state);
     printf("Seed: %g\n", seed);
     for (int j = 0; j < n; ++j) {
