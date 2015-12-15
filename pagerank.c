@@ -16,7 +16,7 @@
  */
 int run_iteration(int n, double d, int* restrict g, double* restrict w) 
 {
-    int* restrict wnew = (int*) calloc(n, sizeof(double));
+    int* restrict wnew = (double*) calloc(n, sizeof(double));
     int done = 1;
     #pragma omp parallel for shared(g, w, wnew) reduction(&& : done)
     for (int i=0; i<n; ++i) {
@@ -32,9 +32,8 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
                 sum += w[j]/(double)jDegree;
             }
         }
-        printf("(1 - %g)/%g = %g\n", d, (double)n, ((1.0 - d)/(double)n));
         wnew[i] = ((1.0 - d)/(double)n) + (d*sum);
-        printf("%g = %g + %g\n", wnew[i], ((1.0 - d)/(double)n), (d*sum));
+        printf("%g = %g + %g\n", wnew[i], ((1.0 - d)/(double)n), (d * sum));
         done = wnew[i] == w[i];
     }
     printf("Iteration Happened\n");
