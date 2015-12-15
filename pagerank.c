@@ -33,10 +33,8 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
             }
         }
         wnew[i] = ((1.0 - d)/(double)n) + (d*sum);
-        printf("%g = %g + %g\n", wnew[i], ((1.0 - d)/(double)n), (d * sum));
         done = wnew[i] == w[i];
     }
-    printf("Iteration Happened\n");
     memcpy(w, wnew, n * sizeof(double));
     free(wnew);
     return done;
@@ -46,11 +44,14 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
  *
  */
 
-void pagerank(int n, double d, int* restrict g, double* restrict w)
+int pagerank(int n, double d, int* restrict g, double* restrict w)
 {
+    int iterations = 0;
     for (int done = 0; !done; ) {
         done = run_iteration(n, d, g, w);
+        iterations++;
     }
+    return iterations;
 }
 
 /**
@@ -166,14 +167,15 @@ int main(int argc, char** argv)
 
     // Time the pagerank code
     double t0 = omp_get_wtime();
-    pagerank(n, d, g, w);
+    int iterations = pagerank(n, d, g, w);
     double t1 = omp_get_wtime();
 
-    //openmp, cores, time, n, p, d, checksum
-    printf("openmp, %d, %g, %d, %g, %g, %g\n", 
+    //openmp, cores, time, n, iterations, p, d, checksum
+    printf("openmp, %d, %g, %d, %d, %g, %g, %g\n", 
            omp_get_max_threads(),
            (t1-t0),
            n,
+           iterations,
            p,
            d,
            checksum(w, n));
