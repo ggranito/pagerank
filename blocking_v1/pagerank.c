@@ -46,6 +46,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         done = done && (fabs(wnew[i] - newVal) < 1.0/(1000000.0 * (double)n));
         wnew[i] = newVal;
     }
+    return done;
 }
 
 
