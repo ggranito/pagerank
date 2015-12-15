@@ -10,7 +10,7 @@
 
 #define g(x, y) (g[y*n+x]) 
 
-int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count) 
+int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* wlocal) 
 {   
     double residual = 0.0;
     for (int i=0; i<count; ++i) {
@@ -47,7 +47,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             printf("i: %d value: %g, newVal: %g\n", i, wnew[i+start], newVal);            
         }
         residual += fabs(wnew[i+start] - newVal);
-        wnew[i+start] = newVal;
+        wlocal[i+start] = newVal;
     }
     
     return residual < ((double)count)/(1000000.0 * (double)n);
@@ -73,11 +73,14 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
             count = ((n/num_threads) * (this_thread + 1)) - start;
         }
         printf("Thread: %d Start: %d Count: %d\n", this_thread, start, count);
+        double* wlocal = (double*)calloc(count, sizeof(double));
+        memcpy(wlocal, wnew+start, count);
         int done = 0;
         while (!done) {
-            done = run_block(n, d, g, w, wnew, degree, start, count);            
+            done = run_block(n, d, g, w, wnew, degree, start, count, wlocal);            
+            memcpy(wnew+start, wlocal, count);
         }
-
+        free(wlocal);
         #pragma omp barrier
         for(int i=start; i<start+count; i++){
             iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
