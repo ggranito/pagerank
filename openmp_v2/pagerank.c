@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <unistd.h>
 #include <omp.h>
 #include "mt19937p.h"
@@ -82,7 +83,7 @@ int* gen_graph(int n, double p)
 {
     int* g = calloc(n*n, sizeof(int));
     struct mt19937p state;
-    sgenrand(10302011UL, &state);
+    sgenrand(time(NULL), &state);
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);

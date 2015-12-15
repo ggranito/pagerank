@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <unistd.h>
 #include <omp.h>
 #include "mt19937p.h"
@@ -11,15 +12,17 @@
 
 void run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count) 
 {
-    double* wlocal = (double*) calloc(count, sizeof(double));
-    memcpy(wlocal, w + start, count * sizeof(double));
     double* wlocalnew = (double*) calloc(count, sizeof(double));
-    memcpy(wlocalnew, wlocal, count * sizeof(double));
+    memcpy(wlocalnew, w + start, count * sizeof(double));
 
+    double* wlocal = (double*) calloc(count, sizeof(double));
+    memcpy(wlocal, wlocalnew, count * sizeof(double));
+    
 
     int done = 0;
     while (!done) {
         done = 1;
+        memcpy(wlocal, wlocalnew, count * sizeof(double));
 
         for (int i=0; i<count; ++i) {
             double sum = 0.0;
@@ -54,7 +57,6 @@ void run_block(int n, double d, int* restrict g, double* restrict w, double* res
             done = done && (wlocalnew[i] == wlocal[i]);
         }
 
-        memcpy(wlocal, wlocalnew, count * sizeof(double));
     }
     memcpy(wnew + start, wlocalnew, count * sizeof(double));
 }
@@ -135,7 +137,7 @@ int* gen_graph(int n, double p)
 {
     int* g = calloc(n*n, sizeof(int));
     struct mt19937p state;
-    sgenrand(10302011UL, &state);
+    sgenrand(time(NULL), &state);
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);
