@@ -43,13 +43,12 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
         
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
-        if(start == 0){
-            printf("i: %d value: %g, newVal: %g\n", i, wnew[i+start], newVal);            
-        }
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i+start] = newVal;
     }
-    
+    if(start == 0){
+        printf("residual: %g threshold: %g\n", residual, ((double)count)/(1000000.0 * (double)n));            
+    }
     return residual < ((double)count)/(1000000.0 * (double)n);
 }
 
