@@ -29,10 +29,10 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         // do the block
         for (int j=start; j<start+count; ++j) {
             //find edges pointing toward i
+            if (j==0 || j==1){
+                printf("i: %d, j: %d, wnew[0] %g, wlocal[0] %g\n", i, j, wnew[0], wlocal[0]);
+            }
             if (g(j,i+start)) { 
-                if (j==0 || j==1){
-                    printf("i: %d, j: %d, wnew[0] %g, wlocal[0] %g\n", i, j, wnew[0], wlocal[0]);
-                }
                 //count out degree of j
                 sum += wnew[j]/(double)degree[j];
             }
