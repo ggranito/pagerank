@@ -12,6 +12,7 @@
 
 int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* restrict wlocal) 
 {   
+    double totalRes = 0.0;
     double residual = 0.0;
     for (int i=0; i<count; ++i) {
         double sum = 0.0;
@@ -41,13 +42,14 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += w[j]/(double)degree[j];
             }
         }
-        printf("i: %d, wlocal[i]: %g, wnew[i+start]: %g\n", i, wlocal[i], wnew[i+start]);
+
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
+        totalRes += (wnew[i+start] - newVal);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
     }
     if(start == 0){
-        printf("residual: %g threshold: %g\n", residual, ((double)count)/(1000000.0 * (double)n));            
+        printf("residual: %g netRes: %g\n", residual, totalRes);            
     }
     return residual < ((double)count)/(1000000.0 * (double)n);
 }
