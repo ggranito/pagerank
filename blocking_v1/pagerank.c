@@ -50,7 +50,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         wlocal[i] = newVal;
         double ct = 0.0;
         for (int j=0; j<n;++j) {
-            ct += wlocal[j];
+            ct += wnew[j];
         }
         printf("I= %d SUM OF WEIGHTS: %g\n", i, ct);
     }
