@@ -41,7 +41,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
                 sum += w[j]/(double)degree[j];
             }
         }
-        
+        printf("i: %d, wlocal[i]: %g, wnew[i+start]: %g\n", i, wlocal[i], wnew[i+start]);
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
