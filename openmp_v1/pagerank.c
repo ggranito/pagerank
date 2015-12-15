@@ -69,9 +69,9 @@ int* gen_graph(int n, double p)
 {
     int* g = calloc(n*n, sizeof(int));
     struct mt19937p state;
-    unsigned long seed = floor(omp_get_wtime());
-    sgenrand(seed, &state);
-    printf("%d\n", seed);
+    double seed = omp_get_wtime();
+    sgenrand((unsigned long)seed, &state);
+    printf("Seed: %g\n", seed);
     for (int j = 0; j < n; ++j) {
         for (int i = 0; i < n; ++i)
             g(i, j) = (genrand(&state) < p);
