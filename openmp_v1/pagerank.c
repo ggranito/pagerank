@@ -34,7 +34,7 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w)
             }
         }
         wnew[i] = ((1.0 - d)/(double)n) + (d*sum);
-        done = abs(wnew[i] - w[i]) < 1.0/(100.0 * (double)n);
+        done = abs(wnew[i] - w[i]) < 1.0/(100000.0 * (double)n);
     }
     memcpy(w, wnew, n * sizeof(double));
     free(wnew);
