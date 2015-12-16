@@ -1,0 +1,155 @@
+#!/bin/sh -l
+
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=0:30:00
+#PBS -N pagerank
+#PBS -j oe
+
+module load cs5220
+cd $PBS_O_WORKDIR
+echo "openmp, cores, time, n, iterations, p, d, checksum"
+export OMP_NUM_THREADS=1
+./pagerank.x -n 20000
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=2
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=3
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=4
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=5
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=6
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=7
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=8
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=9
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=10
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=11
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=12
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=13
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=14
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=15
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=16
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=17
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=18
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=19
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=20
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=21
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=22
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=23
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+export OMP_NUM_THREADS=24
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+./pagerank.x -n 20000 
+
