@@ -33,7 +33,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
-                printf("i: %d j: %d g: %d\n", i, j, g(j, i+start));
+                printf("i: %d, start: %d j: %d g(j,i+start): %d g(j,i): %d\n", i, start, j, g(j, i+start), g(j, i));
                 totalEdges +=1;
                 sum += wnew[j]/(double)degree[j];
             }
