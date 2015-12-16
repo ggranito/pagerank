@@ -4,22 +4,22 @@ Begin optimization report for: main(int, char **)
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at mt19937p.c(59,5) inlined into pagerank.c(221,14)
+LOOP BEGIN at mt19937p.c(59,5) inlined into pagerank.c(243,14)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between mt line 60 and mt line 60
 LOOP END
 
-LOOP BEGIN at mt19937p.c(59,5) inlined into pagerank.c(221,14)
+LOOP BEGIN at mt19937p.c(59,5) inlined into pagerank.c(243,14)
 <Remainder>
 LOOP END
 
-LOOP BEGIN at pagerank.c(136,5) inlined into pagerank.c(221,14)
+LOOP BEGIN at pagerank.c(158,5) inlined into pagerank.c(243,14)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at pagerank.c(137,9) inlined into pagerank.c(221,14)
+   LOOP BEGIN at pagerank.c(159,9) inlined into pagerank.c(243,14)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at mt19937p.c(77,9) inlined into pagerank.c(221,14)
+      LOOP BEGIN at mt19937p.c(77,9) inlined into pagerank.c(243,14)
          remark #15388: vectorization support: reference mt has aligned access   [ mt19937p.c(78,13) ]
          remark #15389: vectorization support: reference mt has unaligned access   [ mt19937p.c(78,13) ]
          remark #15388: vectorization support: reference mt has aligned access   [ mt19937p.c(79,13) ]
@@ -41,11 +41,11 @@ LOOP BEGIN at pagerank.c(136,5) inlined into pagerank.c(221,14)
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(221,14)
+      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(243,14)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(221,14)
+      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(243,14)
          remark #15388: vectorization support: reference mt has aligned access   [ mt19937p.c(82,13) ]
          remark #15389: vectorization support: reference mt has unaligned access   [ mt19937p.c(82,13) ]
          remark #15388: vectorization support: reference mt has aligned access   [ mt19937p.c(83,13) ]
@@ -66,34 +66,34 @@ LOOP BEGIN at pagerank.c(136,5) inlined into pagerank.c(221,14)
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(221,14)
+      LOOP BEGIN at mt19937p.c(81,9) inlined into pagerank.c(243,14)
       <Remainder>
       LOOP END
 
-      LOOP BEGIN at mt19937p.c(77,9) inlined into pagerank.c(221,14)
+      LOOP BEGIN at mt19937p.c(77,9) inlined into pagerank.c(243,14)
       <Remainder>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at pagerank.c(151,5) inlined into pagerank.c(223,9)
-   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(153,13) ]
-   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(154,9) ]
+LOOP BEGIN at pagerank.c(173,5) inlined into pagerank.c(245,9)
+   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(175,13) ]
+   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(176,9) ]
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between  line 153 and  line 154
-   remark #15346: vector dependence: assumed OUTPUT dependence between  line 154 and  line 153
+   remark #15346: vector dependence: assumed OUTPUT dependence between  line 175 and  line 176
+   remark #15346: vector dependence: assumed OUTPUT dependence between  line 176 and  line 175
 
-   LOOP BEGIN at pagerank.c(152,9) inlined into pagerank.c(223,9)
-      remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(153,13) ]
+   LOOP BEGIN at pagerank.c(174,9) inlined into pagerank.c(245,9)
+      remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(175,13) ]
    LOOP END
 LOOP END
 
-LOOP BEGIN at pagerank.c(227,5)
+LOOP BEGIN at pagerank.c(249,5)
 <Peeled>
 LOOP END
 
-LOOP BEGIN at pagerank.c(227,5)
-   remark #15388: vectorization support: reference w has aligned access   [ pagerank.c(228,9) ]
+LOOP BEGIN at pagerank.c(249,5)
+   remark #15388: vectorization support: reference w has aligned access   [ pagerank.c(250,9) ]
    remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
    remark #15442: entire loop may be executed in remainder
@@ -107,23 +107,23 @@ LOOP BEGIN at pagerank.c(227,5)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at pagerank.c(227,5)
+LOOP BEGIN at pagerank.c(249,5)
 <Remainder>
-   remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(228,9) ]
+   remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(250,9) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
-LOOP BEGIN at pagerank.c(227,5)
+LOOP BEGIN at pagerank.c(249,5)
 <Remainder>
 LOOP END
 
-LOOP BEGIN at pagerank.c(176,5) inlined into pagerank.c(244,12)
+LOOP BEGIN at pagerank.c(198,5) inlined into pagerank.c(266,12)
 <Peeled>
 LOOP END
 
-LOOP BEGIN at pagerank.c(176,5) inlined into pagerank.c(244,12)
-   remark #15388: vectorization support: reference w has aligned access   [ pagerank.c(177,9) ]
+LOOP BEGIN at pagerank.c(198,5) inlined into pagerank.c(266,12)
+   remark #15388: vectorization support: reference w has aligned access   [ pagerank.c(199,9) ]
    remark #15399: vectorization support: unroll factor set to 8
    remark #15300: LOOP WAS VECTORIZED
    remark #15442: entire loop may be executed in remainder
@@ -136,27 +136,27 @@ LOOP BEGIN at pagerank.c(176,5) inlined into pagerank.c(244,12)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at pagerank.c(176,5) inlined into pagerank.c(244,12)
+LOOP BEGIN at pagerank.c(198,5) inlined into pagerank.c(266,12)
 <Remainder>
-   remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(177,9) ]
+   remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(199,9) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
-LOOP BEGIN at pagerank.c(176,5) inlined into pagerank.c(244,12)
+LOOP BEGIN at pagerank.c(198,5) inlined into pagerank.c(266,12)
 <Remainder>
 LOOP END
 
-LOOP BEGIN at pagerank.c(167,5) inlined into pagerank.c(248,9)
-   remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(168,9) ]
+LOOP BEGIN at pagerank.c(189,5) inlined into pagerank.c(270,9)
+   remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ pagerank.c(190,9) ]
 LOOP END
 
 
 Non-optimizable loops:
 
 
-LOOP BEGIN at pagerank.c(207,5)
-   remark #15535: loop was not vectorized: loop contains switch statement. Consider using if-else statement.   [ pagerank.c(208,9) ]
+LOOP BEGIN at pagerank.c(229,5)
+   remark #15535: loop was not vectorized: loop contains switch statement. Consider using if-else statement.   [ pagerank.c(230,9) ]
 LOOP END
 ===========================================================================
 
@@ -218,21 +218,52 @@ LOOP BEGIN at pagerank.c(102,9)
    LOOP END
 LOOP END
 
-LOOP BEGIN at pagerank.c(108,5)
+LOOP BEGIN at pagerank.c(112,5)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at pagerank.c(112,5)
+      remark #15389: vectorization support: reference taken has unaligned access   [ pagerank.c(112,25) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 4 
+      remark #15477: vector loop cost: 0.620 
+      remark #15478: estimated potential speedup: 5.330 
+      remark #15479: lightweight vector operations: 3 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
+
+   LOOP BEGIN at pagerank.c(112,5)
+   <Remainder>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at pagerank.c(115,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between taken line 118 and taken line 126
+   remark #15346: vector dependence: assumed FLOW dependence between taken line 126 and taken line 118
+
+   LOOP BEGIN at pagerank.c(117,9)
+      remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+   LOOP END
+LOOP END
+
+LOOP BEGIN at pagerank.c(130,5)
    remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
 LOOP END
 
-LOOP BEGIN at pagerank.c(74,9) inlined into pagerank.c(109,16)
+LOOP BEGIN at pagerank.c(74,9) inlined into pagerank.c(131,16)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at pagerank.c(16,5) inlined into pagerank.c(109,16)
+   LOOP BEGIN at pagerank.c(16,5) inlined into pagerank.c(131,16)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(131,16)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(131,16)
          remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(23,17) ]
          remark #15389: vectorization support: reference degree has unaligned access   [ pagerank.c(23,17) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -242,23 +273,23 @@ LOOP BEGIN at pagerank.c(74,9) inlined into pagerank.c(109,16)
          remark #15450: unmasked unaligned unit stride loads: 1 
          remark #15456: masked unaligned unit stride loads: 2 
          remark #15475: --- begin vector loop cost summary ---
-         remark #15476: scalar loop cost: 36 
+         remark #15476: scalar loop cost: 39 
          remark #15477: vector loop cost: 15.000 
-         remark #15478: estimated potential speedup: 2.330 
+         remark #15478: estimated potential speedup: 2.520 
          remark #15479: lightweight vector operations: 19 
          remark #15487: type converts: 1 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(19,9) inlined into pagerank.c(131,16)
       <Remainder>
       LOOP END
 
-      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(131,16)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(131,16)
          remark #15389: vectorization support: reference wnew has unaligned access   [ pagerank.c(32,17) ]
          remark #15389: vectorization support: reference degree has unaligned access   [ pagerank.c(32,17) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -268,23 +299,23 @@ LOOP BEGIN at pagerank.c(74,9) inlined into pagerank.c(109,16)
          remark #15450: unmasked unaligned unit stride loads: 1 
          remark #15456: masked unaligned unit stride loads: 2 
          remark #15475: --- begin vector loop cost summary ---
-         remark #15476: scalar loop cost: 36 
+         remark #15476: scalar loop cost: 39 
          remark #15477: vector loop cost: 15.000 
-         remark #15478: estimated potential speedup: 2.330 
+         remark #15478: estimated potential speedup: 2.520 
          remark #15479: lightweight vector operations: 19 
          remark #15487: type converts: 1 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(28,9) inlined into pagerank.c(131,16)
       <Remainder>
       LOOP END
 
-      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(131,16)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(131,16)
          remark #15389: vectorization support: reference w has unaligned access   [ pagerank.c(41,17) ]
          remark #15389: vectorization support: reference degree has unaligned access   [ pagerank.c(41,17) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -294,21 +325,21 @@ LOOP BEGIN at pagerank.c(74,9) inlined into pagerank.c(109,16)
          remark #15450: unmasked unaligned unit stride loads: 1 
          remark #15456: masked unaligned unit stride loads: 2 
          remark #15475: --- begin vector loop cost summary ---
-         remark #15476: scalar loop cost: 36 
+         remark #15476: scalar loop cost: 39 
          remark #15477: vector loop cost: 15.000 
-         remark #15478: estimated potential speedup: 2.330 
+         remark #15478: estimated potential speedup: 2.520 
          remark #15479: lightweight vector operations: 19 
          remark #15487: type converts: 1 
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(109,16)
+      LOOP BEGIN at pagerank.c(37,9) inlined into pagerank.c(131,16)
       <Remainder>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at pagerank.c(80,9) inlined into pagerank.c(109,16)
+LOOP BEGIN at pagerank.c(80,9) inlined into pagerank.c(131,16)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between iterationDone line 81 and iterationDone line 81
    remark #15346: vector dependence: assumed ANTI dependence between iterationDone line 81 and iterationDone line 81
