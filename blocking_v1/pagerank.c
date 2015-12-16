@@ -48,11 +48,13 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
-        double ct = 0.0;
+        double wt = 0.0;
+        int deg = 0;
         for (int j=0; j<n;++j) {
-            ct += wnew[j];
+            wt += wnew[j];
+            deg += degree[j];
         }
-        printf("I= %d SUM OF WEIGHTS: %g\n", i, ct);
+        printf("I= %d SUM OF WEIGHTS: %g DEGREE: %d\n", i, wt, deg);
     }
     if(start == 0){
         printf("residual: %g netRes: %g\n", residual, totalRes);            
@@ -121,16 +123,12 @@ int pagerank(int n, double d, int* restrict g, double* restrict w)
     double* restrict wnew = (double*) calloc(n, sizeof(double));
     memcpy(wnew, w, n * sizeof(double));
     
-    //compute degree of each item prior (if degree = 0, it should be n)
+    //compute degree of each item prior
     int* restrict degree = (int*) calloc(n, sizeof(int));
     for (int i=0; i<n; ++i) {
         int count = 0;
         for (int j=0; j<n; ++j) {
             count += g(i,j);
-        }
-
-        if (count == 0) {
-            count = n;
         }
         degree[i] = count;
     }
