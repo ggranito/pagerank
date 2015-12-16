@@ -2,11 +2,10 @@
 
 #PBS -l nodes=1:ppn=24
 #PBS -l walltime=0:30:00
-#PBS -N pagerank
+#PBS -N run
 #PBS -j oe
 
 module load cs5220
 cd $PBS_O_WORKDIR
-
-mpirun -np 20 ./pagerank-mpi.x -n 200 -x 5 -y 4 -o matrix.out -i matrix.in
-
+amplxe-cl -collect advanced-hotspots \
+./pagerank.x -n 2000
