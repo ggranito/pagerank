@@ -8,7 +8,7 @@
 #include <omp.h>
 #include "mt19937p.h"
 
-#define g(x, y) (g[y*n+x]) 
+#define g(x, y) (g[(y)*n+(x)]) 
 
 int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* restrict wlocal) 
 {   
