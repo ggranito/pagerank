@@ -15,6 +15,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
     printf("RUNNING BLOCK start: %d count: %d\n", start, count);
     double totalRes = 0.0;
     double residual = 0.0;
+    int totalEdges = 0;
     for (int i=0; i<count; ++i) {
         double sum = 0.0;
         //do before the block
@@ -31,6 +32,7 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
+                totalEdges +=1;
                 sum += wnew[j]/(double)degree[j];
             }
         }
@@ -48,16 +50,9 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
-        double wt = 0.0;
-        int deg = 0;
-        for (int j=0; j<n;++j) {
-            wt += wnew[j];
-            deg += degree[j];
-        }
-        printf("I= %d SUM OF WEIGHTS: %g DEGREE: %d\n", i, wt, deg);
     }
     if(start == 0){
-        printf("residual: %g netRes: %g\n", residual, totalRes);            
+        printf("residual: %g netRes: %g totalEdges: %d\n", residual, totalRes, totalEdges);            
     }
     return residual < ((double)count)/(1000000.0 * (double)n);
 }
