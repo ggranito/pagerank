@@ -43,7 +43,6 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         }
 
         double newVal = ((1.0 - d)/(double)n) + (d*sum);
-        totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
     }
