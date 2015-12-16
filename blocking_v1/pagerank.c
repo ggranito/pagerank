@@ -12,13 +12,9 @@
 
 int run_block(int n, double d, int* restrict g, double* restrict w, double* restrict wnew, int* restrict degree, int start, int count, double* restrict wlocal) 
 {   
-    printf("RUNNING BLOCK start: %d count: %d\n", start, count);
-    double totalRes = 0.0;
     double residual = 0.0;
-    int totalEdges = 0;
     for (int i=0; i<count; ++i) {
         double sum = 0.0;
-        printf("i: %d start: %d\n", i, start);
         //do before the block
         for (int j=0; j<start; ++j) {
             //find edges pointing toward i
@@ -33,8 +29,6 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
             //find edges pointing toward i
             if (g(j,i+start)) { 
                 //count out degree of j
-                printf("i: %d, start: %d j: %d g(j,i+start): %d g(j,i): %d\n", i, start, j, g(j, i+start), g(j, i));
-                totalEdges +=1;
                 sum += wnew[j]/(double)degree[j];
             }
         }
@@ -52,13 +46,6 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         totalRes += (newVal - wnew[i+start]);
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
-    }
-    int totalDeg = 0;
-    for(int i=0;i<n;i++){
-        totalDeg += degree[i];
-    }
-    if(start == 0){
-        printf("residual: %g netRes: %g totalEdges: %d, totalDeg: %d\n", residual, totalRes, totalEdges, totalDeg);            
     }
     return residual < ((double)count)/(1000000.0 * (double)n);
 }
@@ -82,32 +69,17 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         } else {
             count = ((n/num_threads) * (this_thread + 1)) - start;
         }
-        printf("Thread: %d Start: %d Count: %d\n", this_thread, start, count);
         double* wlocal = (double*)calloc(count, sizeof(double));
         memcpy(wlocal, wnew+start, count * sizeof(double));
         int done = 0;
         while (!done) {
-            double sum = 0.0;
-            for (int i=0; i<n;++i) {
-                sum += wlocal[i];
-            }
-            printf("SUM OF WEIGHTS BEFORE: %g\n", sum);
             done = run_block(n, d, g, w, wnew, degree, start, count, wlocal);            
             memcpy(wnew+start, wlocal, count * sizeof(double));
-            sum = 0.0;
-            for (int i=0; i<n;++i) {
-                sum += wlocal[i];
-            }
-            printf("SUM OF WEIGHTS AFTER: %g\n", sum);
         }
         free(wlocal);
         #pragma omp barrier
         for(int i=start; i<start+count; i++){
-            int val = (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
-            if (val==0){
-                printf("w[i]: %g, wnew[i]: %g\n", w[i], wnew[i]);
-            }
-            iterationDone = iterationDone && val;
+            iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(1000000.0 * (double)n));
             w[i] = wnew[i];
         }
     }
