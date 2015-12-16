@@ -51,8 +51,12 @@ int run_block(int n, double d, int* restrict g, double* restrict w, double* rest
         residual += fabs(wnew[i+start] - newVal);
         wlocal[i] = newVal;
     }
+    int totalDeg = 0;
+    for(int i=0;i<n;i++){
+        totalDeg += degree[i];
+    }
     if(start == 0){
-        printf("residual: %g netRes: %g totalEdges: %d\n", residual, totalRes, totalEdges);            
+        printf("residual: %g netRes: %g totalEdges: %d, totalDeg: %d\n", residual, totalRes, totalEdges, totalDeg);            
     }
     return residual < ((double)count)/(1000000.0 * (double)n);
 }
