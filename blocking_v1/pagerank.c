@@ -78,7 +78,7 @@ int run_iteration(int n, double d, int* restrict g, double* restrict w, double* 
         free(wlocal);
         #pragma omp barrier
         for(int i=start; i<start+count; i++){
-            iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(10000.0 * (double)n));
+            iterationDone = iterationDone && (fabs(w[i] - wnew[i]) < 1.0/(1000.0 * (double)n));
             w[i] = wnew[i];
         }
     }
